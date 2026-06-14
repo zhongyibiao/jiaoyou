@@ -2,7 +2,8 @@ const { query, withTransaction } = require('../db');
 const { ok, fail } = require('../utils/response');
 
 async function recommendations(req, res) {
-  const limit = Math.min(50, Number(req.query.limit) || 20);
+  const limit = Math.min(50, parseInt(req.query.limit) || 20, 10);
+  const userId = req.user.id;
   const rows = await query(
     `SELECT u.id AS user_id, p.nickname, p.avatar, p.gender,
             p.birthday, p.bio, p.province, p.city, p.interests, p.last_active
@@ -19,8 +20,8 @@ async function recommendations(req, res) {
          SELECT blocker_id FROM blocks WHERE blocked_id = ?
        )
      ORDER BY p.last_active DESC
-     LIMIT ?`,
-    [req.user.id, req.user.id, req.user.id, req.user.id, limit]
+     LIMIT ${limit}`,
+    [userId, userId, userId, userId]
   );
   return ok(res, rows.map((row) => ({
     id: row.user_id,
