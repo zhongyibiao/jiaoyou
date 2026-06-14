@@ -5,8 +5,8 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
-    ignores: ['server/optional-modules/**', '**/node_modules/**'],
+    files: ['client/**/*.{js,jsx,ts,tsx}', 'web/**/*.{js,jsx,ts,tsx}'],
+    ignores: ['**/node_modules/**'],
     languageOptions: {
       ecmaVersion: 2024,
       sourceType: 'module',
