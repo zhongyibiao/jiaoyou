@@ -65,7 +65,7 @@ export const useUserStore = defineStore('user', () => {
       const profile = await userApi.me()
       setUser(profile)
       return profile
-    } catch (e) {
+    } catch (_e) {
       return null
     }
   }
